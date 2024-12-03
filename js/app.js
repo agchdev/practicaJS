@@ -22,12 +22,6 @@ function cargarCategorias() {
 
 }
 
-// selectorCategorias.addEventListener('change', (e) => {
-//     console.log(e.target.value)
-//     let cat = e.target.value;
-//     mostrarRecetasDeCateg(cat);
-// })
-
 // FUNCION PARA CARGAR CATEGORIAS - DATOS DEL SELECT
 function mostrarRecetasDeLaCategoria(cat){
     const url2 ="https://www.themealdb.com/api/json/v1/1/filter.php?c="+cat;
@@ -91,6 +85,7 @@ function mostrarReceta(idReceta){
     })
 };
 
+// Compruebo los textos de los botones para ir cambiandolos de añadido a eliminado
 function textBtnFavs(idReceta){
     const btnFav = document.querySelector("#btnFav");
     if (!compuebaFavs(favs, idReceta)){ 
@@ -100,6 +95,7 @@ function textBtnFavs(idReceta){
     };
 }
 
+// Funcion que elimina las recetas
 function eliminarReceta(idReceta){
     let cont = 0;
     let elim = false;
@@ -118,13 +114,7 @@ function eliminarReceta(idReceta){
     textBtnFavs(idReceta);
 }
 
-// async function getDatos(url3){
-//     const urlFetch = await fetch(url3);
-//     const datos = await urlFetch.json();
-//     console.log(datos.meals[0]);
-//     return datos.meals[0];
-// }
-
+// Funcion que añade a favoritos
 function añadirFavoritos(idReceta){
     console.log(idReceta)
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i="+idReceta;
@@ -156,13 +146,15 @@ function almacenarLocal(){
     localStorage.setItem("fav", JSON.stringify(favs));
 }
 
+// Funcion comprueba si esta añadido a favoritos
 function compuebaFavs(favs, idReceta){
     // Si encuentra un favorito con el mismo id, retorna true (ya está en favoritos)
     return favs.some(fav => fav.idMeal == idReceta);
 }
-console.log(window.location.href);
+
+// console.log(window.location.href);
 let locationPage = window.location.href.split("/");
 let cont = locationPage.length;
 console.log(locationPage[cont-1]);
-if(locationPage[cont-1] == "practica.html") cargarCategorias();
+if(locationPage[cont-1] == "practica.html") cargarCategorias(); // Muestro el select de categorias si esta dentro de practica.html
 
