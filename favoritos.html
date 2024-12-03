@@ -31,6 +31,7 @@
     </style>
 </head>
 <body>
+<!-- INICIO HEADER -->
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="practica.html">Buscador de Recetas</a>
@@ -40,12 +41,15 @@
         </div>
     </div>
 </nav>
+<!-- FIN HEADER -->
 
-
+<!-- INICIO MAIN -->
 <div class="container my-5" id="favoritos">
     <div class="row">
     </div>
 </div>
+<!-- FIN MAIN -->
+ 
  <!-- EMERGENTE -->
  <div class="modal fade" id="emergente" tabindex="-1" aria-labelledby="emergenteLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -73,35 +77,38 @@
 <script src="js/app.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const divRow = document.querySelector(".row")
+        const divRow = document.querySelector(".row"); //Selecciono para añadir aqui los favoritos
 
-        let favs = JSON.parse(localStorage.getItem("fav")) || [];
-        console.log(favs);
+        let favs = JSON.parse(localStorage.getItem("fav")) || []; // Extraigo los datos del localStorage
+        // console.log(favs);
 
-        if(favs.length == 0){
+        // Si no hay nada en el localStorage muestro un mensaje de que no hay nada
+        if(favs.length == 0){ 
             const vacio = document.createElement("h2");
             vacio.setAttribute("class", "text-center fs-1");
             vacio.textContent = "NO HAY FAVORITOS";
             divRow.append(vacio);
-        }
-        favs.forEach(dato => {
-            console.log(dato.idMeal);
-            divRow.innerHTML += `
-            <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-header">
-                        <img src="${dato.strMealThumb}" class="img-fluid"/>    
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">${dato.strMeal}</h4>
-                        <button type="button" onclick="mostrarReceta(${dato.idMeal})" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#emergente">
-                            Ver receta
-                        </button>
+        }else{
+            //Muestro los favoritos
+            favs.forEach(dato => {
+                console.log(dato.idMeal);
+                divRow.innerHTML += `
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-header">
+                            <img src="${dato.strMealThumb}" class="img-fluid"/>    
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">${dato.strMeal}</h4>
+                            <button type="button" onclick="mostrarReceta(${dato.idMeal})" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#emergente">
+                                Ver receta
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            `;  
-        });
+                `;  
+            });
+        }
     })
 </script>
 </body>
